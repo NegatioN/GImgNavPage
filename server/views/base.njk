@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="no" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+        {% if csrfToken %}
+        <meta name="x-csrf-token" content="{{csrfToken}}"/>
+        {% endif %}
+
+        {{ favicons | safe }}
+
+        <title>MY TITLE</title>
+
+        {% if config.IMAGE_CDN_URL %}
+        <link rel="dns-prefetch" href="{{config.IMAGE_CDN_URL}}">
+        <link rel="preconnect" href="{{config.IMAGE_CDN_URL}}">
+        {% endif %}
+        <link rel="stylesheet" href="{{ config.SPADEN_LIB_URL }}">
+        <!--[if IE 9]>
+            <link rel="stylesheet" href="{{ config.SPADEN_IE9_URL }}">
+        <![endif]-->
+        <link rel="preload" href="{{ config.POLYFILLS_LIB_URL }}" as="script">
+        <style>
+            body:not(.no-focus-ring) :focus {
+                outline: 2px solid #f60;
+                outline-offset: -2px;
+            }
+            .no-focus-ring:focus, .no-focus-ring :focus,
+            .probably-touch:focus, .probably-touch :focus { outline: none; }
+        </style>
+        {% if hasJavascriptBundle %}<link rel="preload" href="{{ 'static/bundle.js' | asset }}" as="script">{% endif %}
+        {% block header_extras %}{% endblock %}
+    </head>
+    <body class="no-focus-ring">
+        {% block before_header %}{% endblock %}
+        {{finnlets.topbar | safe}}
+        {% block before_container %}{% endblock %}
+        <div class="container bg-ice pbm">
+            <div class="page">
+                {# Page content should be included in 'content' block in templates #}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {{finnlets.footer | safe}}
+        <!--[if IE 9]>
+        <script src="{{ config.POLYFILLS_IE9_URL }}"></script>
+        <![endif]-->
+        <script src="{{ config.POLYFILLS_LIB_URL }}"></script>
+        {% if config.TRACKJS_ENABLED %}
+            {{ trackJsSnippet | safe }}
+        {% endif %}
+        {% if hasJavascriptBundle %}
+            <script src="{{ 'static/bundle.js' | asset }}" defer></script>
+        {% endif %}
+        {% if config.BANNERS_ENABLED %}
+            <script src="{{ config.BANNERS_AST_URL }}" defer></script>
+            <script src="{{ config.BANNERS_SCHAD_URL }}" defer></script>
+        {% endif %}
+        {% if config.TRACKING_ENABLED %}
+            {% if config.PULSE_ENABLED %}
+                <script src="{{ config.SCH_TRACKING_AUTOTRACKER_URL }}" defer></script>
+                <script src="{{ config.SCH_TRACKING_AUTOSEGMENT_URL }}" defer></script>
+            {% endif %}
+            <script src="{{ config.ANALYTICS_LIB_URL }}" defer></script>
+        {% endif %}
+        {% if config.COMMON_BROWSERBUNDLE_LIB_URL %}
+            <script src="{{ config.COMMON_BROWSERBUNDLE_LIB_URL }}" defer></script>
+        {% endif %}
+        {% if config.COOKIE_CLEANER_ENABLED %}
+            <script src="{{ config.COOKIE_WHITELIST_CLEAN_URL }}" defer></script>
+        {% endif %}
+
+        {% if config.CLIENT_ASSET_MAP_ENABLED %}
+            <script>
+                window.FINN_ASSET_MAP = {{ assetMap | safe }};
+            </script>
+        {% endif %}
+        {% block footer_extras %}{% endblock %}
+        <script>
+            (function() {
+                document.body.addEventListener('keydown', handleKeydown);
+
+                function handleKeydown(event) {
+                    if (event.keyCode == 9 /* Tab */) {
+                        document.body.classList.remove('no-focus-ring');
+                        document.body.removeEventListener('keydown', handleKeydown);
+                    }
+                }
+            })();
+        </script>
+    </body>
+</html>

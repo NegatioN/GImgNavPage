@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": [
+    "finn",
+    "finn/node"
+  ],
+  "env": {
+    "mocha": true,
+    "jest": true
+  }
+}

@@ -1,0 +1,6 @@
+language: finnbuild
+script: run_finnbuild
+after_failure: cat /home/travis/build/finn/node-example-app/npm-debug.log
+# Wait for option to set yarn cache dir, https://github.com/yarnpkg/yarn/pull/2046
+cache:
+  yarn: true

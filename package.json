@@ -1,0 +1,64 @@
+{
+  "name": "GImgNavPage",
+  "version": "1.0.0",
+  "description": "Navigate Google Image search unconstrained",
+  "private": true,
+  "engines": {
+    "node": "6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:NegatioN/GImgNavPage.git"
+  },
+  "license": "Unlicense",
+  "dependencies": {
+    "brakes": "^2.5.1",
+    "envalid": "^2.4.1",
+    "express": "^4.9.0",
+    "nunjucks": "^2.5.2",
+    "nunjucks-date": "^1.2.0",
+    "prom-client": "^7.2.0",
+    "spaden": "^7.8.0",
+    "uglify-js": "^2.7.4",
+    "uglifyify": "^3.0.4"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "del-cli": "^0.2.0",
+    "eslint": "^3.12.2",
+    "eslint-config-finn": "^1.0.1",
+    "espower-loader": "^1.0.1",
+    "hashmark": "^4.1.0",
+    "loose-envify": "^1.3.0",
+    "mocha": "^3.1.2",
+    "nock": "^9.0.2",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.0.0",
+    "object.entries": "^1.0.3",
+    "power-assert": "^1.4.1",
+    "sinon": "^1.17.6",
+    "supertest": "^2.0.1",
+    "supertest-as-promised": "^4.0.1"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "config:show": "show-config config-dirs.js",
+    "start": "npm run start:server",
+    "start:server": "node server/server.js",
+    "start:server:debug": "node --inspect --debug-brk server/server.js",
+    "start:server:watch": "nodemon server/server.js --watch server/ --watch assets/ --ignore assets/static/bundle.js",
+    "pretest": "npm run lint",
+    "test": "mocha",
+    "test:watch": "mocha --watch",
+    "test:coverage": "nyc mocha",
+    "test:coverage:report": "nyc --reporter=html mocha",
+    "test:debug": "npm run test:watch -- --inspect --debug-brk",
+    "bundle:min": "browserify -t [ loose-envify --NODE_ENV production  ] -t babelify -t uglifyify ./client | uglifyjs > ./assets/static/bundle.js",
+    "preassets": "del-cli asset-map.json build/ && npm run bundle:min",
+    "assets": "hashmark 'assets/static/**/*.*' 'build/{name}.{hash}{ext}' --length 8 --digest md5 --asset-map asset-map.json --silent",
+    "postassets": "node scripts/rewrite-asset-map.js"
+  }
+}
