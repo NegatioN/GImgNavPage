@@ -1,19 +1,30 @@
 'use strict';
 
-/**
- * This file is the entry point for all frontend javascript.
- * It is generated on the fly during development.
- * During building, the bundle is created as a static
- * asset and included with the other assets that are
- * uploaded to the CDN.
- */
+const controllerist = require('./controllerist');
+/*
+const { globalSearchMobile, globalSearchDesktop } = require('./components/global-search');
 
-window.addEventListener('load', () => {
-    if (process.env.NODE_ENV === 'production') {
-        console.log('production');
-    } else {
-        console.log('development');
-    }
+function recommendationsController (ele) {
+    const siteUrl = ele.getAttribute('data-site-url');
+    const imgCdnUrl = ele.getAttribute('data-image-cdn-url');
+    const title = ele.getAttribute('data-title');
+    const market = ele.getAttribute('data-market');
+    const injectMeta = (ele.getAttribute('data-meta-rec') === 'true');
 
-    console.log('Hello world from frontend bundle');
-});
+    marketRecs(ele, siteUrl, imgCdnUrl, injectMeta, {
+        title,
+        market,
+        position: `${market}_front`,
+    });
+}
+*/
+
+function main () {
+    const c = controllerist();
+    //c.register('broadcast', broadcastController);
+    console.log("Hello console");
+
+    c.run(document);
+}
+
+main();

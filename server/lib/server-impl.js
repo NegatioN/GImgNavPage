@@ -7,6 +7,7 @@ const path = require('path');
 
 const events = require('./events');
 const metrics = require('./metrics');
+const setupBundle = require('./setup-bundle');
 
 function startApp ({ eventBus }) {
     const app = express();
@@ -19,6 +20,7 @@ function startApp ({ eventBus }) {
         noCache: false,
     });
     app.set('view engine', 'njk');
+    setupBundle(app);
 
     //env.addFilter('asset', (assetPath) => assetMapper.mapAsset(assetPath));
     env.addFilter('date', nunjucksDate);

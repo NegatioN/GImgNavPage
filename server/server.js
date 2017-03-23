@@ -4,6 +4,8 @@ const createServer = require('./lib/server-impl');
 
 const eventBus = new events.EventEmitter();
 
+
+// TODO figure out how to get metrics, so as to assess how popular it is. Add some ads, get dollas.
 let server = createServer({ eventBus });
     server.listen(8080, () => {
         console.log(`Listening on port 8080`);
