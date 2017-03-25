@@ -18,8 +18,8 @@ function setupJsBundle (app) {
         const bundler = browserifyInc(entryPointPath, { debug: true })
             .transform(babelify)
             .transform(envify);
-
-        app.use(`assets/static/bundle.js`, (req, res, next) => {
+        bundler.bundle().pipe(createWriteStream(destinationPath));
+        app.use(`localhost:8080/static/bundle.js`, (req, res, next) => {
             bundler
                 .bundle()
                 .on('error', (err) => next(err))

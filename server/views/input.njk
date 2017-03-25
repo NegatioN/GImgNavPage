@@ -1,0 +1,28 @@
+<div class="r-margin">
+    <form role="queryWord" data-rimg="FRONTPAGE">
+        <div class="relative">
+            <input id="queryWord"
+                type="queryWord"
+                name="q"
+                class="pam"
+                placeholder="Write a query here..."
+                aria-label="Query"
+                autocomplete="off"
+                autocapitalize="off"
+                style="background: #fff; text-indent: 0; padding-right: 54px !important;"
+                {% if not deviceType.isProbablyMobile %}autofocus{% endif %}
+            >
+            <button style="position: absolute; top: 0; right: 0; height: 100%; width: 44px;" aria-label="Søk" class="primary">
+                <svg focusable="false" width="15" height="15" viewBox="19.5 119.5 62 62" class="blockify" style="margin: auto;">
+                    <path
+                        d="M65.8 146.083c0-10.823-8.778-19.6-19.616-19.6-10.83 0-19.614 8.776-19.614 19.6 0 10.84 8.784 19.616 19.614 19.616 10.837 0 19.615-8.778 19.615-19.617z"
+                        fill="none"></path>
+                    <path fill="#fff"
+                        d="M80.982 175.818l-13.92-13.924c3.336-4.393 5.316-9.867 5.316-15.812 0-14.457-11.725-26.177-26.195-26.177-14.457 0-26.184 11.72-26.184 26.177 0 14.472 11.726 26.196 26.183 26.196 5.93 0 11.408-1.983 15.794-5.307L75.9 180.894l5.082-5.075zM26.57 146.083c0-10.823 8.784-19.6 19.614-19.6 10.835 0 19.615 8.776 19.615 19.6 0 10.84-8.778 19.616-19.616 19.616-10.83 0-19.614-8.778-19.614-19.617z"></path>
+                </svg>
+            </button>
+        </div>
+        <div data-dropdown-insertion></div>
+        <div data-fullscreen-search-focus tabindex="-1"></div>
+    </form>
+</div>

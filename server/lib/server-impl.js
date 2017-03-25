@@ -20,9 +20,9 @@ function startApp ({ eventBus }) {
         noCache: false,
     });
     app.set('view engine', 'njk');
+    app.use(express.static('assets'));
     setupBundle(app);
 
-    //env.addFilter('asset', (assetPath) => assetMapper.mapAsset(assetPath));
     env.addFilter('date', nunjucksDate);
 
     app.get('/internal-backstage/health/readiness', (req, res) => {
@@ -38,8 +38,7 @@ function startApp ({ eventBus }) {
     app.get('/',
         (req, res) => {
             eventBus.emit(events.appRequest);
-            console.log(`Hey from index via FIAAS_ENVIRONMENT "YOLO" and NODE_ENV "HEY"`);
-            res.render('index', { message: 'Hello world' });
+            res.render('index');
         });
 
     metrics.startMonitoring({ eventBus, enable: true });

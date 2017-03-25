@@ -19,6 +19,10 @@ function recommendationsController (ele) {
 }
 */
 
+//TODO render current top 6 images
+//TODO render current top 6 direction quadrants.
+//TODO get new rimg by querying.
+
 function main () {
     const c = controllerist();
     //c.register('broadcast', broadcastController);
@@ -27,4 +31,5 @@ function main () {
     c.run(document);
 }
 
+console.log("WHAT?");
 main();
